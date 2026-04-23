@@ -33,7 +33,7 @@ function App() {
 
   let handleSubmit = (event) => {
     event.preventDefault()
-    setListState([...listState, { toDo: text, check: false, show: false }]);
+    setListState([...listState, { id: crypto.randomUUID(), toDo: text, check: false, show: false }]);
     setText('');
   }
 
