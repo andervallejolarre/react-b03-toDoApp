@@ -33,12 +33,31 @@ function App() {
 
   let handleSubmit = (event) => {
     event.preventDefault()
-    setListState([...listState, { toDo: text, check: false }]);
+    setListState([...listState, { toDo: text, check: false, show: false }]);
     setText('');
   }
 
   let done = (event) => {
-    setListState[event.target.id].check(true)
+    let copyOfState = structuredClone(listState);
+    copyOfState[event.target.id].check = event.target.checked;
+    setListState(copyOfState);
+  }
+
+  let deleteToDo = (event) => {
+    let copyOfState = structuredClone(listState);
+    copyOfState.splice(event.target.id, 1)
+    setListState(copyOfState);
+  }
+
+  let handleMouseEnter = (event) => {
+    let copyOfState = structuredClone(listState);
+    copyOfState[event.target.id].show = true;
+    setListState(copyOfState);
+  }
+  let handleMouseLeave = (event) => {
+    let copyOfState = structuredClone(listState);
+    copyOfState[event.target.id].show = false;
+    setListState(copyOfState);
   }
 
 
@@ -55,7 +74,7 @@ function App() {
         </form>
       </header>
       <main className='main'>
-        <List printList={listState} />
+        <List printList={listState} done={done} deleteToDo={deleteToDo} mouseEnter={handleMouseEnter} mouseLeave={handleMouseLeave}/>
       </main>
     </>
   )

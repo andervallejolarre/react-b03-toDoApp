@@ -10,20 +10,37 @@
 const List = (props) => {
 
     let finalList = props.printList.map((item, index) => {
-        if(item.check==false){
-        return (<li className="singleItem" key={index}>
-            <input onChange={done} type="checkbox" id={index} />
-            <p>{item.toDo}</p>
-            <p>Ⓧ</p>
-        </li>
-        )
-        }else if(item.check==true){
-        return (<li className="singleItem" key={index}>
-            <input onChange={done} type="checkbox" id={index} />
-            <p><s>{item.toDo}</s></p>
-            <p>Ⓧ</p>
-        </li>
-        )
+        if (item.check == false) {
+            if (item.show == true) {
+                return (<li className="singleItem" key={index} onMouseLeave={props.mouseLeave}>
+                    <input onChange={props.done} type="checkbox" id={index} />
+                    <p>{item.toDo}</p>
+                    <p onClick={props.deleteToDo} id={index}>Ⓧ</p>
+                </li>
+                )
+            } else if (item.show == false) {
+                return (<li className="singleItem" key={index} onMouseEnter={props.mouseEnter}>
+                    <input onChange={props.done} type="checkbox" id={index} />
+                    <p>{item.toDo}</p>
+                </li>
+                )
+            }
+
+        } else if (item.check == true) {
+            if (item.show == true) {
+                return (<li className="singleItem" key={index} onMouseLeave={props.mouseLeave}>
+                    <input onChange={props.done} type="checkbox" id={index} />
+                    <p><s>{item.toDo}</s></p>
+                    <p onClick={props.deleteToDo} id={index}>Ⓧ</p>
+                </li>
+                )
+            } else if (item.show == false) {
+                return (<li className="singleItem" key={index} onMouseEnter={props.mouseEnter}>
+                    <input onChange={props.done} type="checkbox" id={index} />
+                    <p>{item.toDo}</p>
+                </li>
+                )
+            }
         }
     })
 
