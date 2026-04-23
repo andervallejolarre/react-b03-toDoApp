@@ -10,12 +10,21 @@
 const List = (props) => {
 
     let finalList = props.printList.map((item, index) => {
+        if(item.check==false){
         return (<li className="singleItem" key={index}>
-            <input type="checkbox" />
-            <p>{item}</p>
+            <input onChange={done} type="checkbox" id={index} />
+            <p>{item.toDo}</p>
             <p>Ⓧ</p>
         </li>
         )
+        }else if(item.check==true){
+        return (<li className="singleItem" key={index}>
+            <input onChange={done} type="checkbox" id={index} />
+            <p><s>{item.toDo}</s></p>
+            <p>Ⓧ</p>
+        </li>
+        )
+        }
     })
 
     return (
